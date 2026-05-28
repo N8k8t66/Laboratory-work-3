@@ -1,0 +1,52 @@
+using System;
+using System.Web.Mvc;
+using CourseApp.Filters;
+
+namespace CourseApp.Controllers
+{
+    [CustomAuthorize]
+    public class HomeController : Controller
+    {
+        [HttpGet]
+        [HandleError(ExceptionType = typeof(ArgumentOutOfRangeException),
+            View = "ArgumentError")]
+        [CustomFormatException]
+        public ActionResult Index()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [HandleError(ExceptionType = typeof(ArgumentOutOfRangeException),
+            View = "ArgumentError")]
+        [CustomFormatException]
+        [NegativeIdFilter]
+        public ActionResult Index(
+            int? id,
+            string courseName,
+            string teacher,
+            int hours,
+            DateTime startDate)
+        {
+            if (id != null)
+            {
+                ViewBag.Id = id;
+                ViewBag.CourseName = courseName;
+                ViewBag.Teacher = teacher;
+                ViewBag.Hours = hours;
+                ViewBag.StartDate = startDate;
+
+                ViewBag.Price = Request.Form["price"];
+
+                return View("Result");
+            }
+
+            return RedirectToRoute("Default",
+                new
+                {
+                    controller = "Home",
+                    action = "Index"
+                });
+        }
+    }
+}
