@@ -1,52 +1,52 @@
+using DatabaseApp.Attributes;
 using System;
+using System.Collections.Generic;
 using System.Web.Mvc;
-using CourseApp.Filters;
 
-namespace CourseApp.Controllers
+namespace DatabaseApp.Controllers
 {
     [CustomAuthorize]
     public class HomeController : Controller
     {
-        [HttpGet]
-        [HandleError(ExceptionType = typeof(ArgumentOutOfRangeException),
-            View = "ArgumentError")]
-        [CustomFormatException]
         public ActionResult Index()
         {
             return View();
         }
 
         [HttpPost]
-        [HandleError(ExceptionType = typeof(ArgumentOutOfRangeException),
-            View = "ArgumentError")]
-        [CustomFormatException]
-        [NegativeIdFilter]
+        [NegativeIdActionFilter]
+        [HandleError(ExceptionType = typeof(FormatException), View = "FormatError")]
+        [CustomArgumentException]
         public ActionResult Index(
             int? id,
             string courseName,
             string teacher,
             int hours,
-            DateTime startDate)
+            DateTime startDate,
+            decimal price)
         {
             if (id != null)
             {
                 ViewBag.Id = id;
                 ViewBag.CourseName = courseName;
                 ViewBag.Teacher = teacher;
-                ViewBag.Hours = hours;
-                ViewBag.StartDate = startDate;
 
+                ViewBag.Hours = Request.Form["hours"];
+                ViewBag.StartDate = Request.Form["startDate"];
                 ViewBag.Price = Request.Form["price"];
 
                 return View("Result");
             }
-
-            return RedirectToRoute("Default",
-                new
-                {
-                    controller = "Home",
-                    action = "Index"
-                });
+            else
+            {
+                return RedirectToRoute(
+                    "Default",
+                    new
+                    {
+                        controller = "Home",
+                        action = "Index"
+                    });
+            }
         }
     }
 }
