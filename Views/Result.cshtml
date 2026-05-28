@@ -1,0 +1,51 @@
+@{
+    ViewBag.Title = "Результат";
+}
+
+<h2>Введённые данные</h2>
+
+<table border="1" cellpadding="5">
+    <tr>
+        <th>Поле</th>
+        <th>Значение</th>
+    </tr>
+
+    <tr>
+        <td>Идентификатор курса</td>
+        <td>@ViewBag.Id</td>
+    </tr>
+
+    <tr>
+        <td>Название курса</td>
+        <td>@ViewBag.CourseName</td>
+    </tr>
+
+    <tr>
+        <td>Преподаватель</td>
+        <td>@ViewBag.Teacher</td>
+    </tr>
+
+    <tr>
+        <td>Количество часов</td>
+        <td>@ViewBag.Hours</td>
+    </tr>
+
+    <tr>
+        <td>Дата начала</td>
+        <td>@ViewBag.StartDate</td>
+    </tr>
+
+    <tr>
+        <td>Стоимость обучения</td>
+        <td>@ViewBag.Price</td>
+    </tr>
+
+    <tr>
+        <td>Описание курса</td>
+        <td>@ViewBag.Description</td>
+    </tr>
+</table>
+
+<p>
+    @Html.ActionLink("Вернуться назад", "Index")
+</p>
