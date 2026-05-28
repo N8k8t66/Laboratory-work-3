@@ -1,0 +1,60 @@
+@{
+    ViewBag.Title = "Курсы по базам данных";
+}
+
+<h2>Ввод данных курса</h2>
+
+@using (Html.BeginForm())
+{
+    <div>
+        @Html.Label("Идентификатор курса")
+        @Html.TextBox("id", null,
+            new { @class = "form-control", type = "number" })
+    </div>
+
+    <div>
+        @Html.Label("Название курса")
+        @Html.TextBox("courseName", null,
+            new { @class = "form-control" })
+    </div>
+
+    <div>
+        @Html.Label("Преподаватель")
+        @Html.TextBox("teacher", null,
+            new { @class = "form-control" })
+    </div>
+
+    <div>
+        @Html.Label("Количество часов")
+        @Html.TextBox("hours", null,
+            new { @class = "form-control", type = "number" })
+    </div>
+
+    <div>
+        @Html.Label("Дата начала")
+        @Html.TextBox("startDate", null,
+            new { @class = "form-control", type = "date" })
+    </div>
+
+    <div>
+        @Html.Label("Стоимость обучения")
+        @Html.TextBox("price", null,
+            new { @class = "form-control", type = "number" })
+    </div>
+
+    <div>
+        @Html.Label("Описание курса")
+        @Html.TextArea("description", null,
+            new
+            {
+                @class = "form-control",
+                rows = 4
+            })
+    </div>
+
+    <br />
+
+    <input type="submit"
+           value="Отправить"
+           class="btn btn-primary" />
+}
